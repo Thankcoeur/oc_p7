@@ -1,0 +1,24 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "maxime.db"
+  },
+  "test": {
+    "username": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+    "database": "YOUR_DB_NAME",
+    "host": "YOUR_HOST",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "timezone": "SYSTEM"
+  },
+  "production": {
+    "username": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD",
+    "database": "YOUR_DB_NAME",
+    "host": "YOUR_HOST",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "timezone": "SYSTEM"
+  }
+}

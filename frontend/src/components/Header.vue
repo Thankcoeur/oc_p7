@@ -66,59 +66,43 @@ export default {
 };
 </script>
 
-<style lang='scss'  >
+<style lang='scss' scoped   >
+@import "../scss/mixin";
 
-nav {
-  
- display: flex;
- justify-content: space-between;
- padding: 20px;
- align-items: center;
+nav { 
 
-  
-  
-  
- 
-}
-
-.smania {
-  font-size:30px;
-  
-}
-
-h1 {
-  margin-bottom: 0;
-}
-
-ul {
-  margin: 0;
-  list-style: none;
-  color: black;
-  display: flex;
-  justify-items: center;
+  display : flex ;
   align-items: center;
-  justify-content: space-around
+  justify-content : space-between;
+  padding: 20px;
   
 }
 
-i {
-  @include  gradiant-texte; 
+ul { 
+display : flex;
+justify-content : space-between;
+list-style: none;
+
 }
 
-li {
-  
-  margin-left: 20px;
+
+a { color :  black;
+text-decoration : none}
+
+a:hover { text-decoration : none}
+
+li { 
+
+  margin-left: 10px;
 }
 
-a {
-  color : black;
-  font-weight: 500;
-  text-decoration: none;
-  margin: 0;
+
+.smania { 
+  @include gradiant-texte
+
 }
 
-.my-btn{
-  background-color: none;
-  box-shadow: none;
-}
+
+ 
+
 </style>

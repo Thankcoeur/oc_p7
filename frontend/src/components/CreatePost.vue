@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div class="createpost">
       <form @submit.prevent="createPost" >
 
  <h3>Créer un post</h3>
-      <input type="text" v-model="FormData.texte">
+      <div class="block">
 
-      <input type="file" @change="fileLoader">
-      
-       <button type="submit">send</button>
+        <input class="text-input" type="text" v-model="FormData.texte">
+
+      <input type="file" id="file" class="file" name="file" @change="fileLoader">
+      <label for="file"><i class="fas fa-image file-img"></i>image</label>
+      </div>
+       <button class="publish" type="submit">Publier</button>
+  
 
 
 
@@ -58,8 +62,43 @@ export default {
 };
 </script>
 
-<style>
-.input-text {
-  width: 100%;
+<style scoped lang="scss">
+
+.text-input {
+  width:80%;
+  margin : auto;
+  border-radius: 20px;
+  height:40px;
+  padding: 20px
+
 }
+
+.createpost {
+  margin-bottom: 100px ;
+}
+
+#file  {
+  
+
+  display : none
+}
+
+.file-img {
+  margin-left: 20px;
+  margin-right:10px
+}
+
+.publish  {
+
+border-radius : 20px;
+padding : 10px ;
+margin : 10px;
+margin-left:  0;
+@include gradiant-image;
+color :white
+
+
+}
+
+
 </style>

@@ -1,0 +1,12 @@
+@mixin gradiant-texte {
+    background-image: linear-gradient(to right top, #051937, #004d7a, #00b9ca, #00bf72, #a8eb12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+  @mixin gradiant-image {
+   
+    background-image: linear-gradient(to right top, #051937 , #00b9ca );
+
+  }

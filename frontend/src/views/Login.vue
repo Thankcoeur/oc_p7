@@ -1,11 +1,11 @@
 <template>
-<div class="signup">
+<div class="signup  signlogin">
 
 
 <div class="infos">
 
 
-  <h1>SmaNia</h1>
+  <h1 class="login-h1">SmaNia</h1>
   <h2>by Groupomania</h2>
 </div>
 
@@ -40,6 +40,7 @@
 <script>
 import store from '../store';
 import Vuex from "vuex"
+import log from "../schemas/Schema"
 export default {
   name: "Login",
   store : store , 
@@ -70,10 +71,25 @@ export default {
     
     
     Login() {
-      const data = {username : this.username , password : this.password}
+
+      try  { 
+         const data = {username : this.username , password : this.password}
 
 
-      store.dispatch('login',data)
+  const  valid =  log.validate(data)
+  console.log(valid.error)
+  if(valid.error) throw new Error(valid.error)
+
+     
+ store.dispatch('login',data)
+
+
+
+      } catch(e) {
+
+        console.log(e)
+      }
+     
 
 
       
@@ -86,7 +102,10 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped >
+
+
+
 
 
 </style>

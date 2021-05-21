@@ -43,8 +43,10 @@ export default {
 
 <style lang="scss" scoped>
 .wall {
+  
 max-width: 900px;
 margin: auto;
+padding-top: 100px;
 }
 
 </style>

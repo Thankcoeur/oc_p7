@@ -52,44 +52,10 @@ exports.add =  async (req, res) => {
     
     
     
-  /**  models.User.findOne({
-        attributes: ['id', 'email', 'username'],
-        where: { id: id }
-    })
-        .then(user => {
-            if (user !== null) {
-                let content = req.body.content;
-                if (req.file != undefined) {
-                    attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-                }
-                else {
-                    attachmentURL == null
-                };
-                if ((content == 'null' && attachmentURL == null)) {
-                    res.status(400).json({ error: 'Rien à publier' })
-                } else {
-                    models.Post.create({
-                        content: content,
-                        attachement: attachmentURL,
-                        UserId: user.id
-                    })
-                        .then((newPost) => {
-                            res.status(201).json(newPost)
-                        })
-                        .catch((err) => {
-                            res.status(500).json(err)
-                        })
-                };
-            } else {
-                res.status(400).json(error);
-            }
-        })
-        .catch(error => res.status(500).json(error));
 
-        */
 }
 
-//Afficher les posts sur le mur
+
 exports.listMsg = (req, res) => {
     models.Post.findAll({
         include: [{
@@ -110,33 +76,28 @@ exports.listMsg = (req, res) => {
 
 
 exports.delete = async (req, res) => {
-      const id = req.body.id
+    console.log("delete")
+
+
 
         try {
 
-         const post  = await models.Post.findByPk(id)
+            if (!req.body.id ) throw new Error("id du post a suprimer n'existe pas")
 
-              if(post == null) throw new Error("post introuvable")
+            
+               const post = await models.Post.findByPk(req.body.id)
 
-              if(post.attachement) {
+               res.maxime =" maxime"
 
-                const filename = post.attachement.split('/images/')[1];
-                fs.unlink(`images/${filename}`, (err) => {
-                  if(err) throw new Error("erreur de supression")
-                    
+               await post.destroy()
 
-
-                    })
-
-
-              }
-
-                await models.Post.destroy({
-                where: { id: id} })
+             
+                
            
 
               
-            res.status(200).json(post)
+                res.status(200).json({message: "ok"})
+                return 1
                       
 
               
@@ -145,8 +106,15 @@ exports.delete = async (req, res) => {
 
             
                 }catch (e) {
-            console.log(e)
-             res.status(500).json(e)
+                    
+                    
+                    
+           
+              res.status(500).json({message : e.message})
+              return 0
+
+             
+             
             
         }
 

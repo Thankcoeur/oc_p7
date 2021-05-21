@@ -2,7 +2,7 @@
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let models = require('../models');
-let utils  = require('../utils/jwtUtils')
+let utils = require('../utils/jwtUtils')
 
 exports.signup = async (req, res) => {
 
@@ -68,9 +68,9 @@ exports.signup = async (req, res) => {
 
 };
 
-exports.login = async  (req, res) => {
+exports.login = async (req, res) => {
 
-   try {
+    try {
 
         const user = await models.User.findOne({
             where: { username: req.body.username }
@@ -91,55 +91,83 @@ exports.login = async  (req, res) => {
 
 
 
-   } catch(e) {
-       console.log(e)
+    } catch (e) {
+        console.log(e)
 
-    res.status(e.status || 500).json({ message: e || e.message || "erreur server" })
+        res.status(e.status || 500).json({ message: e || e.message || "erreur server" })
 
-   }
+    }
 
 
 
 
 };
 
-exports.getUser = (req, res) => {
-    models.User.findOne({
+exports.getUsers = (req, res) => {
+    console.log('getUsers')
+    models.User.findAll({
         attributes: ['id', 'email', 'username', 'isAdmin'],
-        where: { id: req.user.id }
+
     })
-        .then(user => res.status(200).json(user))
+        .then((user) => res.status(200).json(user))
         .catch(error => res.status(500).json(error))
 };
 
 
 
-exports.delete = async (req, res) => {
+exports.getUser = async (req, res) => {
+    console.log('getUsers')
+    const user  =  await  models.User.findOne({
+        attributes: ['id', 'email', 'username', 'isAdmin'],
+        where : { id : req.params.id}
 
+    })
+    if ( !user) throw new Error("utilisateur invalid")
+    res.status(200).json(user)
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.delete = async (req, res) => {
+console.log("delete")
 
     try {
-       
+
         const posts = await models.Post.findAll({
-            where : { UserId : req.user.id}
+            where: { UserId: req.user.id }
         })
 
-        posts.forEach( async (post) => { await post.destroy() })
+        posts.forEach(async (post) => { await post.destroy() })
 
 
 
-     await req.user.destroy() 
+        await req.user.destroy()
 
-      res.status(200).json({message : "utilisateur suprimé"})
+        res.status(200).json({ message: "utilisateur suprimé" })
 
 
 
 
 
     }
-    catch (e){
+    catch (e) {
         console.log(e)
 
-        res.status(e.status || 500).json({ message : e.message || "erreur server" })
+        res.status(e.status || 500).json({ message: e.message || "erreur server" })
 
 
 
@@ -149,6 +177,6 @@ exports.delete = async (req, res) => {
 
 
 
-   
+
 
 }

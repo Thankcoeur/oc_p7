@@ -4,9 +4,11 @@
 
  <h1>Votre Compte</h1>
 
-<h2>email :  {{email}}</h2>
-<h2> pseudo : {{pseudo }}</h2>
-<button class="btn">suprimer Votre compte</button>
+<Compte   :deleteAcount="deleteAcount"  :compte="compte"/>
+
+
+  
+
     
   </div>
 </template>
@@ -14,21 +16,27 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-
+import Compte from "./../components/Compte"
 export default {
   name: "User",
   data() {
     return {
+      compte : {}
       
     };
   },
   computed: {
     ...mapState(["user"])
   },
+  components : {
+      Compte
+    
+  },
   methods: {
-    deleteAccount() {
+    deleteAcount(id) {
+      console.log("salut")
       axios
-        .delete("http://localhost:3000/api/user/delete", {
+        .delete("http://localhost:3000/api/user/delete/"+id, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
           }
@@ -40,12 +48,25 @@ export default {
         })
         .catch(error => console.log(error));
     },
-  
+
  
   },
   mounted() {
-    this.$store.dispatch("getUserInfos");
-  }
+    axios
+        .get("http://localhost:3000/api/user/getUser/"+localStorage.getItem("id"), {
+           headers: {
+            Authorization: "Bearer " +localStorage.getItem("token")
+          }
+        })
+        .then((user ) => {
+          this.compte = user.data
+          
+          
+          
+        })
+        .catch(error => console.log(error));
+    }
+  
 };
 </script>
 

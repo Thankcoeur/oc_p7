@@ -94,10 +94,14 @@ export default {
 
 border-radius : 20px;
 padding : 10px ;
+border : none;
+  box-shadow: 0 0px 4px 0px rgba(0,0,0,.28);
+
 margin : 10px;
 margin-left:  0;
-@include gradiant-image;
-color :white
+
+background-color : #00b9ca ;
+color : white
 
 
 }

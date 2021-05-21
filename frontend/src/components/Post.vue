@@ -90,9 +90,11 @@ export default {
 
   background-color: white;
   
-  box-shadow: 0 1px 46px -4px rgba(0,0,0,.28);
+  box-shadow: 0 0px 4px 0px rgba(0,0,0,.28);
   margin : auto;
   margin-bottom: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .top {
   grid-area: top;
@@ -101,7 +103,7 @@ export default {
 }
 .right {
   grid-area: right;
-  background-color: rgb(13, 40, 65);
+  background-color: #00b9ca ;
   ul { 
   list-style : none;
   display : grid;

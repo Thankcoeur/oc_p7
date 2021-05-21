@@ -19,7 +19,18 @@ export default {
     
   },
   mounted() {
-    store.dispatch("getPosts")
+    console.log(store.getters.getPosts)
+   
+if( store.getters.getPosts.length == 0)  store.dispatch("getPosts")
+
+
+
+  
+    
+
+
+
+    
 
 
   },

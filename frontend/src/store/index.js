@@ -12,7 +12,8 @@ const state =  {
 user : {
   token : localStorage.getItem("token") ,
   isAdmin :localStorage.getItem("isAdmin") ,
-  isAuth : localStorage.getItem("isAuth") 
+  isAuth : localStorage.getItem("isAuth") ,
+  id : localStorage.getItem("id")
 
 
 },
@@ -34,7 +35,8 @@ init : (state , param) => {
 
   state.user.token = param[0] ,
   state.user.isAuth = param[1] ,
-  state.user.isAdmin = param[2]
+  state.user.isAdmin = param[2],
+  state.user.id = param[3]
 
 
 
@@ -97,12 +99,14 @@ login :   (state ,  data) =>  {
   axios.post(base.url + "user/login", data)
   .then((user) => {
     
-    store.commit('init',[ user.data.token , true,user.data.isAdmin
-    ])
+    store.commit('init',[ user.data.token , true,user.data.isAdmin ,user.data.userId ])
+    
+    console.log(user)
 
     localStorage.setItem("token",user.data.token)
     localStorage.setItem("isAdmin",user.data.isAdmin)
     localStorage.setItem("isAuth",true)
+    localStorage.setItem("id", user.data.userId) 
 
     
 

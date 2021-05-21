@@ -23,37 +23,44 @@ body {
 }
 
 .signlogin {
+  
 
 
 display: grid ;
 
-grid-template-columns: 1fr 1fr;
+height:100vh;
 grid-template-rows: 100vh;
 align-items: center;
 justify-items: center;
 
 form {
-  background-color: white;
-  box-shadow: 0px 0px  5px 0px ;
   padding: 20px;
-  max-width: 80%;
-  min-width: 400px;
+  max-width: 400px;
 
-  .btn  {
+.btn  {
 
-    @include gradiant-image ; 
-    width:200px ; 
+    background-color:  #1e0136;
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+   
+    padding:10px ; 
     color: white;
+    
   }
   .input-container {
 
     padding: 10px;
+    input {
+      padding : 15px
+    }
   }
 
 .icon {
+  color :  #00bf72;
   margin-right: 20px;
 
-  @include gradiant-texte
+  
 }
 
 

@@ -103,10 +103,10 @@ exports.login = async  (req, res) => {
 
 };
 
-exports.userProfil = (req, res) => {
+exports.getUser = (req, res) => {
     models.User.findOne({
         attributes: ['id', 'email', 'username', 'isAdmin'],
-        where: { id: id }
+        where: { id: req.user.id }
     })
         .then(user => res.status(200).json(user))
         .catch(error => res.status(500).json(error))
@@ -114,34 +114,41 @@ exports.userProfil = (req, res) => {
 
 
 
-exports.deleteProfile = (req, res) => {
+exports.delete = async (req, res) => {
 
 
-    (async (req, res) => {
-        
-
-        const user = await models.User.findOne({
-            where: { id: userId }
+    try {
+       
+        const posts = await models.Post.findAll({
+            where : { UserId : req.user.id}
         })
 
-        if (user == null) throw { mesage: "utilisateur n' existe pas" }
+        posts.forEach( async (post) => { await post.destroy() })
 
-        const destroyPost = await models.Post.destroy({
-            where: { userId: user.id }
-        })
-        if (!destroyPost) throw { message: "post non suprimer erreur" }
 
-        const destroyUser = await models.User.destroy({
-            where: { id: user.id }
-        })
-        if (!destroyUser) throw { message: "erreur destruction utilisateur" }
 
-        res.status(200).json({ message: "utilisateur suprimé" })
+     await req.user.destroy() 
+
+      res.status(200).json({message : "utilisateur suprimé"})
 
 
 
 
 
-    })(req, res).catch(e => res.status(e.status || 500).json({ message: e.mesage || "erreur server" }))
+    }
+    catch (e){
+        console.log(e)
+
+        res.status(e.status || 500).json({ message : e.message || "erreur server" })
+
+
+
+    }
+
+
+
+
+
+   
 
 }

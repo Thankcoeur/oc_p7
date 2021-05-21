@@ -10,7 +10,7 @@ exports.add =  async (req, res) => {
 
     try {
         const content = req.body.content
-        const id  =   1
+       
         var attachement = null
         
 
@@ -18,12 +18,8 @@ exports.add =  async (req, res) => {
             throw new Error("rien a publier")
         }
 
-       const user =  models.User.findOne({
-            attributes: ['id', 'email', 'username'],
-            where: { id: id }
-        })
+      
 
-        if (user == null) throw new Error("utilisateur  n'existe pas")
 
         if(req.file) attachement = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         else attachement =null
@@ -31,7 +27,7 @@ exports.add =  async (req, res) => {
         const post = await  models.Post.create({
             content: content,
             attachement:   attachement,
-            UserId: id
+            UserId: req.user.id
         })
 
         res.status(200).json(post)
@@ -76,7 +72,7 @@ exports.listMsg = (req, res) => {
 
 
 exports.delete = async (req, res) => {
-    console.log("delete")
+    
 
 
 
@@ -87,7 +83,6 @@ exports.delete = async (req, res) => {
             
                const post = await models.Post.findByPk(req.body.id)
 
-               res.maxime =" maxime"
 
                await post.destroy()
 
@@ -97,7 +92,7 @@ exports.delete = async (req, res) => {
 
               
                 res.status(200).json({message: "ok"})
-                return 1
+             
                       
 
               
@@ -111,7 +106,7 @@ exports.delete = async (req, res) => {
                     
            
               res.status(500).json({message : e.message})
-              return 0
+           
 
              
              

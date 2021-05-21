@@ -2,12 +2,7 @@
 <div class="signup  signlogin">
 
 
-<div class="infos">
 
-
-  <h1 class="login-h1">SmaNia</h1>
-  <h2>by Groupomania</h2>
-</div>
 
 
 

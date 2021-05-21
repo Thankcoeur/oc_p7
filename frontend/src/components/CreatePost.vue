@@ -2,13 +2,13 @@
   <div class="createpost">
       <form @submit.prevent="createPost" >
 
- <h3>Créer un post</h3>
+
       <div class="block">
 
         <input class="text-input" type="text" v-model="FormData.texte">
 
       <input type="file" id="file" class="file" name="file" @change="fileLoader">
-      <label for="file"><i class="fas fa-image file-img"></i>image</label>
+      <label for="file"><i class="fas fa-image file-img"></i></label>
       </div>
        <button class="publish" type="submit">Publier</button>
   
@@ -35,7 +35,7 @@ export default {
         texte: null,
         image: null
       },
-      msgError: ""
+      
     };
   },
   computed: {
@@ -74,7 +74,9 @@ export default {
 }
 
 .createpost {
+  padding : 20px;
   margin-bottom: 100px ;
+  
 }
 
 #file  {

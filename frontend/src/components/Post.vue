@@ -25,7 +25,7 @@
             data-target="#modalEditPost"
             type="button"
             @click="emitInfoPost();changeEditStyle('modify');"
-          >Modifier</bu></li>
+          ></bu></li>
      </ul>
 
    </div>
@@ -78,7 +78,6 @@ export default {
 <style lang="scss" scoped>
 
 .post {
-  border-radius: 20px;
   display: grid;
   grid-template-areas:
   
@@ -87,14 +86,13 @@ export default {
             ;
 
     grid-template-rows: auto auto ;
-  grid-template-columns:  1fr 50px;
+  grid-template-columns:  1fr auto;
 
   background-color: white;
   
   box-shadow: 0 1px 46px -4px rgba(0,0,0,.28);
   margin : auto;
   margin-bottom: 80px;
-  max-width : 700px
 }
 .top {
   grid-area: top;

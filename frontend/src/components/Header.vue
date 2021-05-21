@@ -76,6 +76,7 @@ nav {
   justify-content : space-between;
   padding: 20px;
   
+  
 }
 
 ul { 
@@ -86,8 +87,10 @@ list-style: none;
 }
 
 
-a { color :  black;
-text-decoration : none}
+a { color : #0f002a;
+font-weight: bold;
+text-decoration : none;
+font-size:14px}
 
 a:hover { text-decoration : none}
 

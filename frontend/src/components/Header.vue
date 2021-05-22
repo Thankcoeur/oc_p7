@@ -70,6 +70,9 @@ export default {
 @import "../scss/mixin";
 
 nav { 
+  position : fixed; 
+  left: 0 ;
+  right: 0; 
 
   display : flex ;
   align-items: center;
@@ -82,6 +85,7 @@ nav {
 ul { 
 display : flex;
 justify-content : space-between;
+align-items: center;
 list-style: none;
 
 }
@@ -101,7 +105,9 @@ li {
 
 
 .smania { 
-  @include gradiant-texte
+  @include gradiant-texte;
+  font-size: 30px;
+
 
 }
 

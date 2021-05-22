@@ -2,11 +2,11 @@
   <div class="user">
 
 
- <h1>Votre Compte</h1>
 
 
 
-<div class="admin">
+
+<div class="content">
 
 
 <Compte v-for="compte in comptes" :compte="compte" v-bind:key="compte.id"  :deleteAcount="deleteAcount"  />
@@ -121,11 +121,22 @@ export default {
 
 <style lang="scss" scoped>
 
+body {
+
+  background-color:white;
+}
+
+.content {
+
+margin-top : 150px;
+
+}
+
 .user  {
 
   max-width:900px;
   padding : 50px ;
-  margin: auto;background-color: white;
+ background-color: white;
 
 
 }

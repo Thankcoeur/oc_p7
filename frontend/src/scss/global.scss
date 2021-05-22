@@ -7,10 +7,7 @@
   box-sizing: border-box;
 }
 
-body {
 
-  background-color: rgb(241, 241, 241);
-}
 
 //signup and login
 .login-h1 {
@@ -36,16 +33,23 @@ justify-items: center;
 form {
   padding: 20px;
   max-width: 400px;
+  display : grid;
+  align-items: center;
+  justify-items: center;
 
 .btn  {
+  
 
-    background-color:  #1e0136;
+    background-color: #00bf72;
     margin: auto;
+    margin-top: 80px;
+    width : 150px;
     border: none;
     border-radius: 10px;
    
     padding:10px ; 
     color: white;
+    
     
   }
   .input-container {

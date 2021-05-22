@@ -74,6 +74,7 @@ export default {
 }
 
 .createpost {
+  margin-top : 100px;
   padding : 20px;
   margin-bottom: 100px ;
   

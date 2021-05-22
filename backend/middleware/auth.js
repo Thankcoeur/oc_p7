@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 let models = require('../models');
+require('dotenv').config()
 
 module.exports =  async  (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     if (token  == null) throw new Error('token null')
     
-    const decodedToken =  jwt.verify(token, 'maxime');
+    const decodedToken =  jwt.verify(token, process.env.TOKENUSER);
     const  user   = await models.User.findByPk(decodedToken.userId)
     if (user == null) throw new Error("utilisateur n exis plus")
     req.user =  user

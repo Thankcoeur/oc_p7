@@ -6,14 +6,7 @@ let jwt = require('jsonwebtoken')
 module.exports = {
   tokenSign : 'maxime',
   generateToken: function (user) {
-    return jwt.sign({
-      userId: user.id,
-      isAdmin: user.isAdmin
-    },
-      this.tokenSign,
-      {
-        expiresIn: '24h'
-      })
+    return 
   },
   getUserId: function (data) {
     if (data.length > 1) {

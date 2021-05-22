@@ -4,6 +4,7 @@ let jwt = require('jsonwebtoken');
 let models = require('../models');
 let utils = require('../utils/jwtUtils')
 const fs = require('fs')
+require('dotenv').config()
 exports.signup = async (req, res) => {
 
 
@@ -83,7 +84,14 @@ exports.login = async (req, res) => {
 
         res.status(200).json({
             userId: user.id,
-            token: utils.generateToken(user),
+            token: jwt.sign({
+                userId: user.id,
+                isAdmin: user.isAdmin
+              },
+                process.env.TOKENUSER,
+                {
+                  expiresIn: '24h'
+                }),
             isAdmin: user.isAdmin
         })
 
@@ -146,9 +154,11 @@ exports.delete = async (req, res) => {
 console.log("delete")
 
     try {
-
+        const user = await models.User.findByPk(req.params.id)
+        if(!user) throw new Error("pas d'utilisateur  a ce non")
+ 
         const posts = await models.Post.findAll({
-            where: { UserId: req.user.id }
+            where: { UserId: req.params.id  }
         })
 
         posts.forEach(async (post) => { 
@@ -172,6 +182,10 @@ console.log("delete")
             
             
              })
+
+             
+
+             await user.destroy()
 
 
 

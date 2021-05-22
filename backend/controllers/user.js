@@ -3,7 +3,7 @@ let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let models = require('../models');
 let utils = require('../utils/jwtUtils')
-
+const fs = require('fs')
 exports.signup = async (req, res) => {
 
 

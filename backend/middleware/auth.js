@@ -9,7 +9,7 @@ module.exports =  async  (req, res, next) => {
     
     const decodedToken =  jwt.verify(token, process.env.TOKENUSER);
     const  user   = await models.User.findByPk(decodedToken.userId)
-    if (user == null) throw new Error("utilisateur n exis plus")
+    if (user == null) throw new Error("utilisateur n existe plus")
     req.user =  user
     
      next()

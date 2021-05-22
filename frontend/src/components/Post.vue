@@ -19,13 +19,7 @@
    <div class="right">
      <ul>
        <li @click="deletePost(post.id)"> <i class="fas fa-trash-alt"></i></li>
-       <li><bu
-            class="dropdown-item modifPost"
-            data-toggle="modal"
-            data-target="#modalEditPost"
-            type="button"
-            @click="emitInfoPost();changeEditStyle('modify');"
-          ></bu></li>
+       
      </ul>
 
    </div>
@@ -52,6 +46,11 @@ export default {
       required: true
     }
   },
+  mounted() {
+
+
+  }
+  ,
   methods: {
     deletePost(id) {
       console.log(id)

@@ -151,11 +151,31 @@ console.log("delete")
             where: { UserId: req.user.id }
         })
 
-        posts.forEach(async (post) => { await post.destroy() })
+        posts.forEach(async (post) => { 
+
+            if (post.attachement) {
+                const filename = post.attachement.split('/images/')[1];
+                fs.unlink(`images/${filename}`, async  () => {
+                    
+                     await post.destroy()
+                    
+                    
+                })
+            
+    
+    
+            }else {
+                await post.destroy()
+            }
+            
+            
+            
+            
+             })
 
 
 
-        await req.user.destroy()
+        
 
         res.status(200).json({ message: "utilisateur suprimé" })
 

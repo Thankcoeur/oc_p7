@@ -19,12 +19,17 @@ export default {
 
 <style scoped lang="scss">
 
-button {
+h2 {
+  font-size: 16px;
+}
 
-  background-color:rgb(93, 10, 10);
+button {
+  margin-top: 10px;
+
+  background-color:rgb(182, 0, 0);
   padding : 10px;
   color : white;
-  border-radius : 20px;
+ 
 }
 
 

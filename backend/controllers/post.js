@@ -3,30 +3,30 @@ const fs = require('fs');
 
 
 
-exports.add =  async (req, res) => {
+exports.add = async (req, res) => {
 
-    
+
 
 
     try {
         const content = req.body.content
-       
+
         var attachement = null
-        
+
 
         if (content == null) {
             throw new Error("rien a publier")
         }
 
-      
 
 
-        if(req.file) attachement = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        else attachement =null
 
-        const post = await  models.Post.create({
+        if (req.file) attachement = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        else attachement = null
+
+        const post = await models.Post.create({
             content: content,
-            attachement:   attachement,
+            attachement: attachement,
             UserId: req.user.id
         })
 
@@ -37,17 +37,17 @@ exports.add =  async (req, res) => {
 
 
 
-    }catch (e) {
+    } catch (e) {
         console.log(e)
-        res.status(500).json({message :"post non ajouté"})
-        
+        res.status(500).json({ message: "post non ajouté" })
+
 
 
 
     }
-    
-    
-    
+
+
+
 
 }
 
@@ -72,56 +72,52 @@ exports.listMsg = (req, res) => {
 
 
 exports.delete = async (req, res) => {
-    
 
 
 
-        try {
 
-            if (!req.body.id ) throw new Error("id du post a suprimer n'existe pas")
+    try {
 
-            
-               const post = await models.Post.findByPk(req.body.id)
+        if (!req.body.id) throw new Error("id du post a suprimer n'existe pas")
+        const post = await models.Post.findByPk(req.body.id)
 
-
-               await post.destroy()
-
-             
+        if (post.attachement) {
+            const filename = post.attachement.split('/images/')[1];
+            fs.unlink(`images/${filename}`, async  () => {
                 
-           
-
-              
-                res.status(200).json({message: "ok"})
-             
-                      
-
-              
-
-
-
+                 await post.destroy()
+                
+                
+            })
             
-                }catch (e) {
-                    
-                    
-                    
-           
-              res.status(500).json({message : e.message})
-           
 
-             
-             
-            
+
+
         }
 
+       else {
 
+                 await post.destroy()
+            }
+
+
+        
+        res.status(200).json({ message: "ok" })
     
-   
+    } catch (e) {
+
+    res.status(500).json({ message: e.message })
+}
+
+
+
+
 };
 
 exports.update = (req, res) => {
-    
+
     let userOrder = req.body.userIdOrder;
-    
+
     let id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
         attributes: ['id', 'email', 'username', 'isAdmin'],

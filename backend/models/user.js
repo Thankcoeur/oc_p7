@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   isAdmin: DataTypes.BOOLEAN
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    
     models.User.hasMany(models.Post)
   };
   return User;

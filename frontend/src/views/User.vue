@@ -7,13 +7,20 @@
 <Compte   :deleteAcount="deleteAcount"  :compte="compte"/>
 
 
-  
+<div class="admin">
+
+
+<Compte  V />
+
+
+
+</div>
 
     
   </div>
 </template>
 
-<script>
+<script> 
 import axios from "axios";
 import { mapState } from "vuex";
 import Compte from "./../components/Compte"
@@ -26,15 +33,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user","getUser"])
   },
   components : {
       Compte
     
   },
   methods: {
+   
     deleteAcount(id) {
-      console.log("salut")
+     
       axios
         .delete("http://localhost:3000/api/user/delete/"+id, {
           headers: {
@@ -43,7 +51,8 @@ export default {
         })
         .then(() => {
           localStorage.clear()
-          location.replace("#/login")
+          this.$router.replace("/login")
+          
           
         })
         .catch(error => console.log(error));
@@ -52,7 +61,13 @@ export default {
  
   },
   mounted() {
-    axios
+    
+
+    
+
+
+
+      axios
         .get("http://localhost:3000/api/user/getUser/"+localStorage.getItem("id"), {
            headers: {
             Authorization: "Bearer " +localStorage.getItem("token")
@@ -67,7 +82,17 @@ export default {
         .catch(error => console.log(error));
     }
   
-};
+
+
+
+
+
+
+
+    
+
+}
+    
 </script>
 
 <style lang="scss" scoped>

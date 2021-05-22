@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
-    content: DataTypes.STRING,
+    content:{type : DataTypes.STRING, required: true},
     attachement: DataTypes.STRING,
   },
     {});

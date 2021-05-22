@@ -19,9 +19,7 @@ export default {
     
   },
   mounted() {
-    console.log(store.getters.getPosts)
-   
-if( store.getters.getPosts.length == 0)  store.dispatch("getPosts")
+  store.dispatch("Posts")
 
 
 

@@ -2,7 +2,7 @@
   <div class="createpost">
     <form @submit.prevent="createPost">
       <div class="block">
-        <input class="text-input" type="text" v-model="FormData.texte" />
+        <textarea id="publication" rows="" class="text-input" type="text" v-model="FormData.texte" />
 
         <input
           type="file"
@@ -22,6 +22,8 @@
 import { mapState } from "vuex";
 import store from "../store";
 
+
+
 export default {
   name: "CreatePost",
   data() {
@@ -35,12 +37,17 @@ export default {
   computed: {
     ...mapState(["user", "editOption"]),
   },
+mounted() {
+}
+  ,
   methods: {
     createPost() {
       const fd = new FormData();
       fd.append("inputFile", this.FormData.image);
       fd.append("content", this.FormData.texte);
       store.dispatch("addPost", fd);
+      this.FormData.image = null,
+      this.FormData.texte = null
     },
     fileLoader(e) {
       console.log(e);
@@ -60,7 +67,6 @@ export default {
 }
 
 .createpost {
-  margin-top: 100px;
   padding: 20px;
   margin-bottom: 100px;
 }
@@ -85,5 +91,13 @@ export default {
 
   background-color: #00b9ca;
   color: white;
+}
+
+#publication {
+  
+
+overflow: hidden;
+padding : 10px;
+
 }
 </style>

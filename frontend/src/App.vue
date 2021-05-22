@@ -1,27 +1,21 @@
 <template>
-<div>
-  <Header/>
-      <router-view />
+  <div>
+    <Header />
+    <div class="space"></div>
+    <router-view />
   </div>
 </template>
 
 <script>
-
-import Header from './components/Header.vue';
+import Header from "./components/Header.vue";
 
 export default {
-
-
-
   components: {
-    Header
-    
-  }
+    Header,
+  },
 };
 </script>
 
 <style lang="scss">
-
 @import "./scss/global.scss";
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="top">
-      <div class="image-profil gradient-box "><img class="img-profil" src="https://www.gabrielgorgi.com/wp-content/uploads/2019/12/01.jpg.webp" alt=""></div>
+      <div v-html="user.imgProfil" class="image-profil gradient-box "><img class="img-profil" src="https://www.gabrielgorgi.com/wp-content/uploads/2019/12/01.jpg.webp" alt=""></div>
       <h2>{{user.username}}</h2>
 
     </div>
@@ -29,7 +29,6 @@
 
 <script>
 import Axios from 'axios';
-import { mapState } from "vuex";
 import store from '../store';
 
 export default {
@@ -41,7 +40,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user", "editOption"])
   },
   props: ["post"], 
  
@@ -59,7 +57,6 @@ export default {
         }
       )
       .then((user) => {
-        console.log(user.data)
         this.user = user.data;
       })
       .catch((error) => console.log(error));
@@ -68,7 +65,6 @@ export default {
   ,
   methods: {
     deletePost(id) {
-      console.log(id)
  
 
       store.dispatch('deletePost',id)
@@ -82,14 +78,18 @@ export default {
 
     },
     
-    changeEditStyle(value) {
-      this.$store.dispatch("changeEditStyle", value);
-    }
+   
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
+p {
+
+  white-space: pre;
+white-space: pre-line;
+}
 
 .post {
   color : rgb(44, 44, 44) ; 

@@ -1,8 +1,16 @@
 <template>
   <div class="compte">
-      <h2> email : {{compte.email }}</h2>
-      <h2>pseudo :  {{compte.username }}</h2>
-      <button @click="deleteAcount(compte.id)">suprimer</button>
+      
+
+
+      
+
+        <div scope="row">{{compte.email}}</div>
+        <div>{{compte.username }}</div>
+        <div>      <button @click="deleteAcount(compte.id)">suprimer</button> </div>
+
+
+  
      
     </div>
   
@@ -19,6 +27,12 @@ export default {
 
 <style scoped lang="scss">
 
+.compte {
+  margin: 20px;
+  
+ 
+}
+
 h2 {
   font-size: 16px;
 }
@@ -26,9 +40,10 @@ h2 {
 button {
   margin-top: 10px;
 
-  background-color:rgb(182, 0, 0);
+  background-color:rgb(179, 40, 40);
   padding : 10px;
   color : white;
+  border-radius: 10px;
  
 }
 

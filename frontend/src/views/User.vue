@@ -1,5 +1,6 @@
 <template>
   <div class="user">
+    <h1>{{h1message}}</h1>
     <Compte
       
       :compte="compte"
@@ -23,6 +24,7 @@ export default {
     return {
       compte: null,
       comptes: null,
+      h1message: null,
     };
   },
   computed: {
@@ -49,6 +51,7 @@ export default {
   mounted() {
     console.log(store.getters.getUser.isAdmin);
     if (store.getters.getUser.isAdmin) {
+      this.h1message =  "Les Comptes"
       axios
         .get("http://localhost:3000/api/user/getUsers", {
           headers: {
@@ -62,6 +65,8 @@ export default {
         .catch((error) => console.log(error));
         return
     }
+          this.h1message =  "Votre Compte"
+
 
     axios
       .get(
@@ -85,9 +90,7 @@ body {
   background-color: white;
 }
 
-.content {
-  margin-top: 150px;
-}
+
 
 .user {
   max-width: 900px;

@@ -49,8 +49,8 @@ state.posts = newPost
 addPost : (state,newPost) => {
 
 
-  state.posts.push(newPost)
-  console.log(store)
+  state.posts.unshift(newPost)
+  
 
 },
 deletePost : (state,id)  => {
@@ -77,8 +77,9 @@ const getters = {
 
   },
   getPosts : (state) => {
-    console.log(state.posts)
-
+    
+  
+      
     return state.posts
 
   }
@@ -138,7 +139,7 @@ localStorage.clear()
 
 
 },
-getPosts : () => {
+Posts : () => {
   const token = localStorage.getItem("token")
 
 

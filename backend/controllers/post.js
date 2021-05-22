@@ -1,14 +1,16 @@
 let models = require('../models');
 const fs = require('fs');
+const PostSchema = require('../Schemas/PostSchema');
 
 
 
 exports.add = async (req, res) => {
 
 
-
+console.log(req.body)
 
     try {
+        PostSchema.valid(req.body)
         const content = req.body.content
 
         var attachement = null

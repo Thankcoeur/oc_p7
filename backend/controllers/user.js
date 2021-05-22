@@ -82,6 +82,8 @@ exports.login = async (req, res) => {
 
     try {
 
+        SignupSchema.validate(req.body)
+
         const user = await models.User.findOne({
             where: { username: req.body.username }
         })

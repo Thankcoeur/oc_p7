@@ -2,16 +2,24 @@
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let models = require('../models');
-let utils = require('../utils/jwtUtils')
 const fs = require('fs')
+const SignupSchema = require('../Schemas/SignupSchema')
 require('dotenv').config()
 exports.signup = async (req, res) => {
 
 
 
 
+              
+
+
 
     try {
+
+       const  valid = SignupSchema.validate(req.body)
+       if ( valid.error) throw new Error("erreur de validation")
+
+
         const user = await models.User.findOne({
             attributes: ['email'],
             where: { email: req.body.email }
@@ -45,7 +53,8 @@ exports.signup = async (req, res) => {
 
 
     } catch (e) {
-        res.status(e.status || 500).json({ message: e || e.message || "erreur server" })
+        console.log(e)
+        res.status(e.status || 500).json({  message : e.message || "erreur server" })
 
 
     }

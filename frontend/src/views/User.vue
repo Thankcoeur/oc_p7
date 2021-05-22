@@ -4,13 +4,12 @@
 
  <h1>Votre Compte</h1>
 
-<Compte   :deleteAcount="deleteAcount"  :compte="compte"/>
 
 
 <div class="admin">
 
 
-<Compte  V />
+<Compte v-for="compte in comptes" :compte="compte" v-bind:key="compte.id"  :deleteAcount="deleteAcount"  />
 
 
 
@@ -24,11 +23,13 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import Compte from "./../components/Compte"
+//import store from '../store';
 export default {
   name: "User",
   data() {
     return {
-      compte : {}
+      compte : null,
+      comptes :  null
       
     };
   },
@@ -65,6 +66,29 @@ export default {
 
     
 
+
+      
+
+        axios
+        .get("http://localhost:3000/api/user/getUsers", {
+           headers: {
+            Authorization: "Bearer " +localStorage.getItem("token")
+          }
+        })
+        .then((user ) => {
+          this.comptes = user.data
+          
+          
+          
+        })
+        .catch(error => console.log(error));
+
+        
+
+
+
+         
+      
 
 
       axios

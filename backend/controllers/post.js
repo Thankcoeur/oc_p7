@@ -10,7 +10,8 @@ exports.add = async (req, res) => {
 console.log(req.body)
 
     try {
-        PostSchema.valid(req.body)
+        const  valid = PostSchema.validate(req.body)
+     if(valid.error) throw new Error("Schema error")       
         const content = req.body.content
 
         var attachement = null
@@ -41,7 +42,7 @@ console.log(req.body)
 
     } catch (e) {
         console.log(e)
-        res.status(500).json({ message: "post non ajouté" })
+        res.status(500).json({ message: e.message ||"post non ajouté" })
 
 
 

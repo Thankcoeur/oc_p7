@@ -85,6 +85,8 @@ export default {
      
  store.dispatch('login',data)
 
+ this.$router.replace("/")
+
 
 
       } catch(e) {

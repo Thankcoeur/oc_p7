@@ -15,5 +15,5 @@ router.post("/signup",bruteforce.prevent, userCtrl.signup);
 router.post("/login",bruteforce.prevent, userCtrl.login);
 router.get('/getUsers', auth,isAdmin , userCtrl.getUsers);
 router.delete('/delete/:id', auth,AcountAcces, userCtrl.delete)
-router.get('/getUser/:id',auth,AcountAcces, userCtrl.getUser)
+router.get('/getUser/:id',auth, userCtrl.getUser)
 module.exports = router;

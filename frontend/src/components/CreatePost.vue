@@ -89,7 +89,7 @@ mounted() {
   margin: 10px;
   margin-left: 0;
 
-  background-color: #00b9ca;
+  background-color:  var(--main-bg-color);;
   color: white;
 }
 
@@ -98,6 +98,8 @@ mounted() {
 
 overflow: hidden;
 padding : 10px;
+resize:none ;
+
 
 }
 </style>

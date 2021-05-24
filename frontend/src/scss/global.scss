@@ -11,16 +11,26 @@
   width:100vw;
 }
 
-
+.message {
+  color: red ;
+  font-size:12px;
+}
 //signup and login
-.login-h1 {
-  font-size: 60px;
 
-@include gradiant-texte
 
+:root {
+
+--main-bg-color : #FD2D01 ;
+font-size: 16px;
 
 
 }
+
+
+
+
+
+
 
 .signlogin {
   
@@ -42,7 +52,7 @@ form {
 .btn  {
   
 
-    background-color: #00b9ca;
+    background-color: var(--main-bg-color);
     margin: auto;
     margin-top: 80px;
     width : 150px;
@@ -63,7 +73,7 @@ form {
   }
 
 .icon {
-  color :  #00b9ca;
+  color :  var(--main-bg-color);
   margin-right: 20px;
 
   

@@ -1,7 +1,7 @@
 <template>
   <nav >
     <div class="">    <router-link to="/">
-<h1 class="smania">SN</h1>    </router-link></div>
+ <div class="titre">Groupomania</div> </router-link></div>
 
 
     
@@ -81,6 +81,11 @@ nav {
   padding: 20px;
   
   
+}
+
+.titre {
+ color :  var(--main-bg-color ) ;
+ font-size : 1.4rem
 }
 
 ul { 

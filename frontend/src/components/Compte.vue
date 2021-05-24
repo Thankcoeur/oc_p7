@@ -34,13 +34,13 @@ export default {
 }
 
 h2 {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 button {
   margin-top: 10px;
 
-  background-color:rgb(179, 40, 40);
+  background-color:var(--main-bg-color ) ;
   padding : 10px;
   color : white;
   border-radius: 10px;

@@ -1,79 +1,92 @@
 <template>
-<div class="signup signlogin">
+  <div class="signup signlogin">
+    <form @submit.prevent="signup">
+      <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input
+          class="input-field"
+          type="text"
+          placeholder="Username"
+          name="username"
+          v-model="username"
+        />
+      </div>
 
+      <div class="input-container">
+        <i class="fa fa-envelope icon"></i>
+        <input
+          class="input-field"
+          type="text"
+          placeholder="Email"
+          name="email"
+          v-model="email"
+        />
+      </div>
 
-
-
-
-
-
-   
-<form @submit.prevent="signup" >
-
-  <div class="input-container">
-    <i class="fa fa-user icon"></i>
-    <input class="input-field" type="text" placeholder="Username" name="username" v-model="username">
+      <div class="input-container">
+        <i class="fa fa-key icon"></i>
+        <input
+          class="input-field"
+          type="password"
+          placeholder="Password"
+          name="password"
+          v-model="password"
+        />
+      </div>
+      <p class="message">{{ message }}</p>
+      <button type="submit" class="btn">SignUp</button>
+    </form>
   </div>
-
-  <div class="input-container">
-    <i class="fa fa-envelope icon"></i>
-    <input class="input-field" type="text" placeholder="Email" name="email" v-model="email">
-  </div>
-  
-  <div class="input-container">
-    <i class="fa fa-key icon"></i>
-    <input class="input-field" type="password" placeholder="Password" name="password" v-model="password">
-  </div>
-
-  <button type="submit" class="btn">Register</button>
-</form>
-
-
-      
- 
-</div>
-    
 </template>
 
 <script>
-import store from '../store';
-
+const sch  = require("../schemas/Schema")
 
 export default {
   name: "SignUp",
   components :{
-    
+
   },
   data() {
     return {
-    
+
         username: null,
         email: null,
         password: null,
-    
-      msg: ""
+
+      message: ""
     };
   },
 
   methods: {
 
-   
+
 
     signup() {
 
-      const data =  { username: this.username, email: this.email , password: this.password}
-      
-      store.dispatch('signup',data)
-      this.$router.replace("/login")
-      
-       
-      
-    }
+      try {
+  const data = { email: this.email, password: this.password, username : this.username}
+
+const valid = sch.SignUp.validate(data)
+
+if(valid.error) throw new Error("erreur de saisie")
+
+
+
+      } catch (e) {
+
+
+        this.message = e.message
+
+
+      }
+
+
   }
+  }
+
+
 };
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>
+<style lang="scss" scoped></style>

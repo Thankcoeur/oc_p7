@@ -27,10 +27,10 @@
     <i class="fa fa-key icon"></i>
     <input class="input-field" type="password" placeholder="Password" name="password" v-model="password">
   </div>
-
-  <button type="submit" class="btn">Register</button>
+<p v-if="message" class="message">{{message}}</p>
+  <button type="submit" class="btn">Login</button>
   
-
+  
 </form>
 
       
@@ -42,7 +42,7 @@
 <script>
 import store from '../store';
 import Vuex from "vuex"
-import log from "../schemas/Schema"
+const sch  = require('./../schemas/Schema')
 export default {
   name: "Login",
   store : store , 
@@ -52,6 +52,7 @@ export default {
        username : null,
         
         password: null,
+        message: null,
     
       
 
@@ -72,27 +73,27 @@ export default {
 
     
     
-    Login() {
-
-      try  { 
-         const data = {username : this.username , password : this.password}
-
-
-  const  valid =  log.validate(data)
-  console.log(valid.error)
-  if(valid.error) throw new Error(valid.error)
-
-     
- store.dispatch('login',data)
-
- this.$router.replace("/")
+      Login() {
 
 
 
-      } catch(e) {
+    try {
+      const data =  {username : this.username , password : this.password}
+      const valid  =   sch.Login.validate(data)
+  if(valid.error) throw new Error("username ou passeword incorrect")
 
-        console.log(e)
-      }
+
+
+    } catch (e) {
+
+      this.message = e.message
+
+
+
+
+    }
+
+      
      
 
 

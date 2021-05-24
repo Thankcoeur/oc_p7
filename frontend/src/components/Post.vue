@@ -16,7 +16,7 @@
 
     </div>
    
-   <div class="right">
+   <div v-if="post.UserId == getUser.id "  class="right">
      <ul>
        <li @click="deletePost(post.id)"> <i class="fas fa-trash-alt"></i></li>
        
@@ -30,6 +30,7 @@
 <script>
 import Axios from 'axios';
 import store from '../store';
+import Vuex from "vuex"
 
 export default {
   name: "Post",
@@ -40,10 +41,12 @@ export default {
     };
   },
   computed: {
+    ...Vuex.mapGetters(['getUser'])
   },
   props: ["post"], 
  
   mounted() {
+    
     
    
 
@@ -58,6 +61,8 @@ export default {
       )
       .then((user) => {
         this.user = user.data;
+        console.log(this.user.id)
+        console.log(this.post.UserId)
       })
       .catch((error) => console.log(error));
 
@@ -77,6 +82,10 @@ export default {
 
 
     },
+    actualUser() {
+
+      return store.getters.getUser.id
+    }
     
    
   }
@@ -123,7 +132,7 @@ white-space: pre-line;
 }
 .right {
   grid-area: right;
-  background-color: #00b9ca ;
+  background-color: var(--main-bg-color ) ;
   ul { 
   list-style : none;
   display : grid;

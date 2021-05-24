@@ -58,6 +58,7 @@ export default {
     },
     disconnected() {
       store.dispatch('disconnected')
+      this.$router.replace('/login')
       
 
       

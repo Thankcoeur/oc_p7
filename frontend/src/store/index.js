@@ -41,6 +41,25 @@ init : (state , param) => {
 
 
 },
+clear : (state) =>  {
+  state.user ={
+
+    token : null ,
+  isAdmin :null ,
+  isAuth : null ,
+  id : null
+
+
+
+  }
+  state.posts = []
+
+
+
+
+}
+
+,
 postinit : ( state , newPost) => {
 
 state.posts = newPost
@@ -135,7 +154,9 @@ signup : (state , data ) => {
 },
 disconnected : ( ) => {
 store.commit('init',["",false,false])
-localStorage.clear()
+store.commit('clear')
+
+
 
 
 },

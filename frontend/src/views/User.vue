@@ -1,5 +1,6 @@
 <template>
   <div class="user">
+    <div class="block"></div>
     <h1>{{h1message}}</h1>
     <Compte
       
@@ -90,9 +91,12 @@ body {
   background-color: white;
 }
 
-
+.block {
+  margin-top: 100px;
+}
 
 .user {
+  
   max-width: 900px;
   padding: 50px;
   background-color: white;

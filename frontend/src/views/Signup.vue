@@ -64,6 +64,7 @@ export default {
       const data =  { username: this.username, email: this.email , password: this.password}
       
       store.dispatch('signup',data)
+      this.$router.replace("/login")
       
        
       

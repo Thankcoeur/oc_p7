@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header />
-    <div class="space"></div>
     <router-view />
   </div>
 </template>

@@ -1,4 +1,11 @@
 <template>
+<div>
+
+
+
+
+
+
 <div class="signup  signlogin">
 
 
@@ -27,7 +34,7 @@
 </form>
 
       
- 
+ </div>
 </div>
     
 </template>

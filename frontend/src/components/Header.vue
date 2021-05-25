@@ -7,14 +7,14 @@
     
       <ul >
         <li v-if="isAuth" class="my-btn"> 
-          <router-link  to="/">
+          <router-link  to="/wall">
           <i class="fas fa-home"></i></router-link>
         </li>
         <li  v-if="!isAuth">
           <router-link  to="/signup">Sign Up</router-link>
         </li>
         <li v-if="!isAuth" >
-          <router-link  to="/login">Log In</router-link>
+          <router-link  to="/">Log In</router-link>
         </li>
         <li  v-if="isAuth">
           <router-link  to="/user" class="my-btn">
@@ -58,7 +58,7 @@ export default {
     },
     disconnected() {
       store.dispatch('disconnected')
-      this.$router.replace('/login')
+      this.$router.replace('/')
       
 
       

@@ -152,8 +152,8 @@ signup : async (state , data ) => {
 
 },
 disconnected : ( ) => {
-store.commit('init',["",false,false])
 store.commit('clear')
+localStorage.clear()
 
 
 

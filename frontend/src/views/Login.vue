@@ -64,12 +64,10 @@ export default {
 
   },
   mounted() {
-    if (store.getters.getUser.isAuth) {
+    if(store.getters.getUser.isAdmin) {
 
-      this.$router.replace("/wall")
+      this.$router.replace("/wall ")
     }
-
-    
 
   },
   
@@ -91,11 +89,15 @@ export default {
     
       const  valide_pass =  sch.password.validate({password : this.password})
       if (valide_pass.error) throw new Error("mauvais passeword")
-      const data  = { username : this.username , password : this.password}
+
+
+      const data = { username : this.username, password : this.password}
       await  store.dispatch('login',data)
 
+
+
       this.message = "utilisateur connecté"
-      
+      this.$router.replace("/wall")
 
 
 

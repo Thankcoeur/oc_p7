@@ -1,16 +1,21 @@
 <template>
   <div class="user">
     <div class="block"></div>
-    <h1>{{h1message}}</h1>
+    <h1>{{ h1message }}</h1>
+    <p v-if="message" class="message">{{ message }}</p>
+
     <Compte
-      
       :compte="compte"
       v-for="compte in comptes"
       v-bind:key="compte.id"
       :deleteAcount="deleteAcount"
     />
 
-    <Compte v-if="compte !== null" :compte="compte" :deleteAcount="deleteAcount" />
+    <Compte
+      v-if="compte !== null"
+      :compte="compte"
+      :deleteAcount="deleteAcount"
+    />
   </div>
 </template>
 
@@ -26,6 +31,7 @@ export default {
       compte: null,
       comptes: null,
       h1message: null,
+      message: null,
     };
   },
   computed: {
@@ -43,16 +49,19 @@ export default {
           },
         })
         .then(() => {
+          this.message = null;
           localStorage.clear();
-          this.$router.replace("/login");
+          this.$router.replace("/");
         })
-        .catch((error) => console.log(error));
+        .catch(() => {
+          this.message = "accès impossible";
+        });
     },
   },
   mounted() {
     console.log(store.getters.getUser.isAdmin);
     if (store.getters.getUser.isAdmin) {
-      this.h1message =  "Les Comptes"
+      this.h1message = "Les Comptes";
       axios
         .get("http://localhost:3000/api/user/getUsers", {
           headers: {
@@ -60,14 +69,15 @@ export default {
           },
         })
         .then((user) => {
-          console.log(user)
+          console.log(user);
+          this.message = null;
           this.comptes = user.data;
         })
-        .catch((error) => console.log(error));
-        return
+        .catch(() => {
+          this.message = "impossible de recuperer liste";
+        });
     }
-          this.h1message =  "Votre Compte"
-
+    this.h1message = "Votre Compte";
 
     axios
       .get(
@@ -80,8 +90,11 @@ export default {
       )
       .then((user) => {
         this.compte = user.data;
+        this.message = null;
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        this.message = "impossible de recuperer utilisateur";
+      });
   },
 };
 </script>
@@ -96,7 +109,6 @@ body {
 }
 
 .user {
-  
   max-width: 900px;
   padding: 50px;
   background-color: white;

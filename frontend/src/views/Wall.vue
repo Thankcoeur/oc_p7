@@ -1,61 +1,40 @@
 <template>
   <div id="wall" class="wall">
     <CreatePost />
-    <Post v-for="post in getPosts" v-bind:key="post.id" :post="post"  />
-    
+    <Post v-for="post in getPosts" v-bind:key="post.id" :post="post" />
   </div>
 </template>
 
 <script>
 import CreatePost from "../components/CreatePost";
 import Post from "../components/Post";
-import Vuex from "vuex"
-import store from '../store';
+import Vuex from "vuex";
+import store from "../store";
 export default {
   name: "Mur",
   components: {
     CreatePost,
     Post,
-    
   },
   mounted() {
-  store.dispatch("Posts")
-
-
-
-  
-    
-
-
-
-    
-
-
+    store.dispatch("Posts");
   },
-  computed :  {
-...Vuex.mapGetters(['getPosts'])
-
-
+  computed: {
+    ...Vuex.mapGetters(["getPosts"]),
   },
   data() {
     return {
-      allPosts : null
-      
+      allPosts: null,
     };
   },
-  methods: {
-   
-  },
-   
+  methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
 .wall {
-  
-max-width: 900px;
-margin: auto;
-padding-top: 100px;
+  max-width: 900px;
+  margin: auto;
+  padding-top: 100px;
 }
-
 </style>

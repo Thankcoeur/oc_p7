@@ -11,7 +11,7 @@ const isAdmin = require('../middleware/isAdmin')
 const store = new ExpressBrute.MemoryStore()
 const bruteforce = new ExpressBrute(store)
 
-router.post('/signup',  userCtrl.signup)
+router.post('/signup', userCtrl.signup)
 router.post('/login', bruteforce.prevent, userCtrl.login)
 router.get('/getUsers', auth, isAdmin, userCtrl.getUsers)
 router.delete('/delete/:id', auth, AcountAcces, userCtrl.delete)

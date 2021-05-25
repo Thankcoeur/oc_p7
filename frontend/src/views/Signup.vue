@@ -41,7 +41,7 @@
 
 <script>
 const sch = require("../schemas/Schema");
-import store  from "./../store/index"
+import store from "./../store/index";
 export default {
   name: "SignUp",
   components: {},
@@ -66,11 +66,18 @@ export default {
         if (valide_mail.error) throw new Error("adresse mail fausse");
         const valide_pass = sch.password.validate({ password: this.password });
         if (valide_pass.error) throw new Error("password  au mauvais format");
-        const data = { username : this.username , password : this.password , email : this.email}
-        await  store.dispatch('signup',data)
+        const data = {
+          username: this.username,
+          password: this.password,
+          email: this.email,
+        };
+        await store.dispatch("signup", data).catch(() => {
+          throw new Error(
+            "impossible de s' enregistrer l' utilisateur existe surement"
+          );
+        });
 
-
-        this.message ="utilisateur enregistré"
+        this.message = "utilisateur enregistré";
       } catch (e) {
         this.message = e.message;
       }

@@ -7,7 +7,6 @@ const SignupSchema = require('../Schemas/SignupSchema')
 require('dotenv').config()
 
 exports.signup = async (req, res) => {
-
     try {
         const valid = SignupSchema.validate(req.body)
         if (valid.error) throw new Error('erreur de validation')
@@ -38,7 +37,6 @@ exports.signup = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-
     try {
         SignupSchema.validate(req.body)
 
@@ -46,12 +44,10 @@ exports.login = async (req, res) => {
             where: { username: req.body.username },
         })
 
-        if (user == null)
-            throw new Error("utilisateur n'existe pas ")
+        if (user == null) throw new Error("utilisateur n'existe pas ")
 
         const compare = await bcrypt.compare(req.body.password, user.password)
-        if (!compare)
-            throw new Error("mauvais mot de passe")
+        if (!compare) throw new Error('mauvais mot de passe')
 
         res.status(200).json({
             userId: user.id,
@@ -70,7 +66,7 @@ exports.login = async (req, res) => {
     } catch (e) {
         console.log(e)
         res.status(e.status || 500).json({
-            message:  e.message || 'erreur server',
+            message: e.message || 'erreur server',
         })
     }
 }
@@ -93,7 +89,6 @@ exports.getUser = async (req, res) => {
 }
 
 exports.delete = async (req, res) => {
-
     try {
         const user = await models.User.findByPk(req.params.id)
         if (!user) throw new Error("pas d'utilisateur  a ce non")
@@ -117,7 +112,6 @@ exports.delete = async (req, res) => {
 
         res.status(200).json({ message: 'utilisateur suprimé' })
     } catch (e) {
-
         res.status(e.status || 500).json({
             message: e.message || 'erreur server',
         })

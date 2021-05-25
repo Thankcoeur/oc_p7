@@ -1,247 +1,133 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import base from './../../config'
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+import base from "./../../config";
 
+Vue.use(Vuex);
 
-
-Vue.use(Vuex)
-
-const state =  {
-
-user : {
-  token : localStorage.getItem("token") ,
-  isAdmin :localStorage.getItem("isAdmin") ,
-  isAuth : localStorage.getItem("isAuth") ,
-  id : localStorage.getItem("id")
-
-
-},
-posts : []
-
-
-
-}
-
-
-
-
-
-
-
+const state = {
+  user: {
+    token: localStorage.getItem("token"),
+    isAdmin: localStorage.getItem("isAdmin"),
+    isAuth: localStorage.getItem("isAuth"),
+    id: localStorage.getItem("id"),
+  },
+  posts: [],
+};
 
 const mutations = {
-init : (state , param) => {
+  init: (state, param) => {
+    (state.user.token = param[0]),
+      (state.user.isAuth = param[1]),
+      (state.user.isAdmin = param[2]),
+      (state.user.id = param[3]);
+  },
+  clear: (state) => {
+    state.user = {
+      token: null,
+      isAdmin: null,
+      isAuth: null,
+      id: null,
+    };
+    state.posts = [];
+  },
 
-  state.user.token = param[0] ,
-  state.user.isAuth = param[1] ,
-  state.user.isAdmin = param[2],
-  state.user.id = param[3]
-
-
-
-},
-clear : (state) =>  {
-  state.user ={
-
-    token : null ,
-  isAdmin :null ,
-  isAuth : null ,
-  id : null
-
-
-
-  }
-  state.posts = []
-
-
-
-
-}
-
-,
-postinit : ( state , newPost) => {
-
-state.posts = newPost
-
-},
-addPost : (state,newPost) => {
-
-
-  state.posts.unshift(newPost)
-  
-
-},
-deletePost : (state,id)  => {
-
- state.posts = state.posts.filter( item => item.id !== id) 
-
-
-
-
-}
-
-
-
-}
+  postinit: (state, newPost) => {
+    state.posts = newPost;
+  },
+  addPost: (state, newPost) => {
+    state.posts.unshift(newPost);
+  },
+  deletePost: (state, id) => {
+    state.posts = state.posts.filter((item) => item.id !== id);
+  },
+};
 
 const getters = {
-
-  getUser : (state) => {
-    return state.user
+  getUser: (state) => {
+    return state.user;
   },
-  isAuth : (state) => {
-    return  state.user.isAuth
-
-
+  isAuth: (state) => {
+    return state.user.isAuth;
   },
-  getPosts : (state) => {
-    
-  
-      
-    return state.posts
-
-  }
-
-
-
-
-
-}
-
-
+  getPosts: (state) => {
+    return state.posts;
+  },
+};
 
 const actions = {
-  
-login :  async  (state ,  data) =>  {
-  
+  login: async (state, data) => {
+    return await axios.post(base.url + "user/login", data).then((user) => {
+      store.commit("init", [
+        user.data.token,
+        true,
+        user.data.isAdmin,
+        user.data.userId,
+      ]);
 
- await axios.post(base.url + "user/login", data)
-  .then((user) => {
-        
-    store.commit('init',[ user.data.token , true,user.data.isAdmin ,user.data.userId ])
-    
-   
+      localStorage.setItem("token", user.data.token);
+      localStorage.setItem("isAdmin", user.data.isAdmin);
+      localStorage.setItem("isAuth", true);
+      localStorage.setItem("id", user.data.userId);
+      return;
+    });
+  },
 
-    localStorage.setItem("token",user.data.token)
-    localStorage.setItem("isAdmin",user.data.isAdmin)
-    localStorage.setItem("isAuth",true)
-    localStorage.setItem("id", user.data.userId) 
-    return
+  signup: async (state, data) => {
+    await axios.post(base.url + "user/signup", data);
+  },
+  disconnected: () => {
+    store.commit("clear");
+    localStorage.clear();
+  },
+  Posts: () => {
+    const token = localStorage.getItem("token");
 
-    
+    axios
+      .get(base.url + "post/", {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      })
+      .then((response) => {
+        store.commit("postinit", response.data);
+      });
+  },
 
+  addPost: async (state, data) => {
+    const token = state.state.user.token;
 
+    await axios
+      .post(base.url + "post/add", data, {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      })
+      .then((response) => {
+        store.commit("addPost", response.data);
+      });
+  },
+  deletePost: (state, id) => {
+    const token = state.state.user.token;
 
-
-
-  })
-
-
-
-
-}
-
-,
-
-signup : async (state , data ) => {
-
-   await axios.post(base.url + "user/signup", data)
-  
-
-
-},
-disconnected : ( ) => {
-store.commit('clear')
-localStorage.clear()
-
-
-
-
-},
-Posts : () => {
-  const token = localStorage.getItem("token")
-
-
- axios.get(base.url +"post/",{ headers: {
-  'Authorization': `Basic ${token}` 
-}
-  
- }).then((response) => {
-
- store.commit("postinit",response.data)
-
- })
-
-
-},
-
-addPost : (state , data  )=> {
- 
- const token = state.state.user.token
- console.log(token)
-
-  axios.post(base.url +"post/add",data,{ headers: {
-    'Authorization': `Basic ${token}` 
-  }
-    
-   }).then((response) => {
-     console.log(response.data)
-  
-   store.commit("addPost",response.data)
-  
-   })
-
-
-
-
-
-
-
-
-},
-deletePost : (state , id  )=> {
- 
-  const token = state.state.user.token
-  
- 
-   axios.delete(base.url +"post/delete",{ headers: {
-     'Authorization': `Basic ${token}` 
-   },data : {id : id}}
-   
-     
-    ).then(() => {
-      store.commit('deletePost',id)
-   
-    
-   
-    })
- 
- 
- 
- 
- 
- 
- 
- 
- }
-
-
-
-}
-
+    axios
+      .delete(base.url + "post/delete", {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+        data: { id: id },
+      })
+      .then(() => {
+        store.commit("deletePost", id);
+      });
+  },
+};
 
 const store = new Vuex.Store({
- 
-  state : state,
-   mutations:mutations,
-   getters : getters,
-   actions:actions
-  
-  
-  
-  })
+  state: state,
+  mutations: mutations,
+  getters: getters,
+  actions: actions,
+});
 
-
-
-export default store 
+export default store;

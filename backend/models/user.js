@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
             password: DataTypes.STRING,
             isAdmin: DataTypes.BOOLEAN,
         },
-        {},
-    );
+        {}
+    )
     User.associate = function (models) {
-        models.User.hasMany(models.Post);
-    };
-    return User;
-};
+        models.User.hasMany(models.Post)
+    }
+    return User
+}

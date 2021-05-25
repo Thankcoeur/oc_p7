@@ -1,8 +1,15 @@
 <template>
   <div class="createpost">
+    <p class="message">{{ message }}</p>
     <form @submit.prevent="createPost">
       <div class="block">
-        <textarea id="publication" rows="" class="text-input" type="text" v-model="FormData.texte" />
+        <textarea
+          id="publication"
+          rows=""
+          class="text-input"
+          type="text"
+          v-model="FormData.texte"
+        />
 
         <input
           type="file"
@@ -22,12 +29,11 @@
 import { mapState } from "vuex";
 import store from "../store";
 
-
-
 export default {
   name: "CreatePost",
   data() {
     return {
+      message: null,
       FormData: {
         texte: null,
         image: null,
@@ -37,17 +43,29 @@ export default {
   computed: {
     ...mapState(["user", "editOption"]),
   },
-mounted() {
-}
-  ,
+  mounted() {},
   methods: {
-    createPost() {
-      const fd = new FormData();
-      fd.append("inputFile", this.FormData.image);
-      fd.append("content", this.FormData.texte);
-      store.dispatch("addPost", fd);
-      this.FormData.image = null,
-      this.FormData.texte = null
+    async createPost() {
+      try {
+        if (this.FormData.image === null && this.FormData.texte === null) {
+          throw new Error("rien a ajouter");
+        }
+        if (this.FormData.texte && this.FormData.texte.length < 3) {
+          throw new Error("merci de mettre au moins 3 lettre");
+        }
+
+        const fd = new FormData();
+        fd.append("inputFile", this.FormData.image);
+        fd.append("content", this.FormData.texte);
+        (this.FormData.image = null), (this.FormData.texte = null);
+        await store.dispatch("addPost", fd).catch(() => {
+          throw new Error("impossible de creer la resource");
+        });
+
+        this.message = null;
+      } catch (e) {
+        this.message = e.message;
+      }
     },
     fileLoader(e) {
       console.log(e);
@@ -89,17 +107,13 @@ mounted() {
   margin: 10px;
   margin-left: 0;
 
-  background-color:  var(--main-bg-color);;
+  background-color: var(--main-bg-color);
   color: white;
 }
 
 #publication {
-  
-
-overflow: hidden;
-padding : 10px;
-resize:none ;
-
-
+  overflow: hidden;
+  padding: 10px;
+  resize: none;
 }
 </style>

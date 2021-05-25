@@ -1,11 +1,15 @@
 const fs = require('fs')
 const models = require('../models')
-const PostSchema = require('../Schemas/PostSchema')
 
 exports.add = async (req, res) => {
     try {
-        const valid = PostSchema.validate(req.body)
-        if (valid.error) throw new Error('Schema error')
+        console.log(req.body.content)
+        console.log(req.file)
+
+        if(req.body.content === null  && req.file === null) throw new Error("rien a ajouter")
+
+        if( req.body.content.length < 5  && req.body.content === null) throw new Error("texte trop petit")
+
         const { content } = req.body
 
         let attachement = null

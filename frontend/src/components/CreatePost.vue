@@ -50,8 +50,8 @@ export default {
         if (this.FormData.image === null && this.FormData.texte === null) {
           throw new Error("rien a ajouter");
         }
-        if (this.FormData.texte && this.FormData.texte.length < 3) {
-          throw new Error("merci de mettre au moins 3 lettre");
+        if (this.FormData.texte  && this.FormData.texte.length < 5) {
+          throw new Error("merci de mettre au moins 5 lettre");
         }
 
         const fd = new FormData();

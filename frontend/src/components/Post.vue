@@ -11,7 +11,7 @@
       <h2>{{ user.username }}</h2>
     </div>
     <div class="content">
-      <p>{{ post.content }}</p>
+      <p v-if="post.content !== 'null'">{{ post.content }}</p>
       <a v-if="post.attachement" :href="post.attachement"
         ><img class="img-content" :src="post.attachement" alt="..."
       /></a>

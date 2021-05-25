@@ -8,3 +8,6 @@ et dans un autre teminal
 cd backend && yarn upgrade &&  npm start
 
 le projet et ses dependances sont initialisé
+
+username : thankcoeur
+password :  Orange@77270

@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     if (store.getters.getUser.isAdmin) {
-      this.$router.replace("/wall ");
+      this.$router.replace("/wall");
     }
   },
 

@@ -2,9 +2,8 @@ const Joi  = require("joi")
 
 
 
- exports.Login =  Joi.object({
+ exports.password =  Joi.object({
 
-    username: Joi.string().min(3).max(30).required(),
 password : Joi.string().pattern(new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)).required()
 
 
@@ -14,15 +13,19 @@ password : Joi.string().pattern(new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?
 })
 
 
-exports.SignUp =  Joi.object({
+exports.username =  Joi.object({
 
     username: Joi.string().min(3).max(30).required(),
-password : Joi.string().pattern(new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)).required(),
-email  :Joi.string().email({ tlds: {allow: false} }).required()
 
 
 
 
+
+})
+
+
+exports.email  = Joi.object({
+    email  :Joi.string().email({ tlds: {allow: false} }).required()
 })
 
 

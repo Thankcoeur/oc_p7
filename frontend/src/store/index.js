@@ -113,20 +113,21 @@ const getters = {
 
 const actions = {
   
-login :   (state ,  data) =>  {
+login :  async  (state ,  data) =>  {
   
 
-  axios.post(base.url + "user/login", data)
+ await axios.post(base.url + "user/login", data)
   .then((user) => {
-    
+        
     store.commit('init',[ user.data.token , true,user.data.isAdmin ,user.data.userId ])
     
-    console.log(user)
+   
 
     localStorage.setItem("token",user.data.token)
     localStorage.setItem("isAdmin",user.data.isAdmin)
     localStorage.setItem("isAuth",true)
     localStorage.setItem("id", user.data.userId) 
+    return
 
     
 
@@ -143,12 +144,10 @@ login :   (state ,  data) =>  {
 
 ,
 
-signup : (state , data ) => {
+signup : async (state , data ) => {
 
-  axios.post(base.url + "user/signup", data)
-  .then(() => {
-    alert("utilisateur inscrit")
-  })
+   await axios.post(base.url + "user/signup", data)
+  
 
 
 },

@@ -40,52 +40,42 @@
 </template>
 
 <script>
-const sch  = require("../schemas/Schema")
-
+const sch = require("../schemas/Schema");
+import store  from "./../store/index"
 export default {
   name: "SignUp",
-  components :{
-
-  },
+  components: {},
   data() {
     return {
+      username: null,
+      email: null,
+      password: null,
 
-        username: null,
-        email: null,
-        password: null,
-
-      message: ""
+      message: "",
     };
   },
 
   methods: {
-
-
-
-    signup() {
-
+    async signup() {
       try {
-  const data = { email: this.email, password: this.password, username : this.username}
+        const valide_username = sch.username.validate({
+          username: this.username,
+        });
+        if (valide_username.error) throw new Error("mauvais username");
+        const valide_mail = sch.email.validate({ email: this.email });
+        if (valide_mail.error) throw new Error("adresse mail fausse");
+        const valide_pass = sch.password.validate({ password: this.password });
+        if (valide_pass.error) throw new Error("password  au mauvais format");
+        const data = { username : this.username , password : this.password , email : this.email}
+        await  store.dispatch('signup',data)
 
-const valid = sch.SignUp.validate(data)
 
-if(valid.error) throw new Error("erreur de saisie")
-
-
-
+        this.message ="utilisateur enregistré"
       } catch (e) {
-
-
-        this.message = e.message
-
-
+        this.message = e.message;
       }
-
-
-  }
-  }
-
-
+    },
+  },
 };
 </script>
 

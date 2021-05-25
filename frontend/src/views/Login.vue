@@ -63,6 +63,15 @@ export default {
     ...Vuex.mapGetters(['getUser','isAuth'])
 
   },
+  mounted() {
+    if (store.getters.getUser.isAuth) {
+
+      this.$router.replace("/wall")
+    }
+
+    
+
+  },
   
   updated : () => {
     console.log("login updated")
@@ -72,15 +81,21 @@ export default {
   methods: {
 
     
-    
-      Login() {
+     async Login() {
 
 
 
     try {
-      const data =  {username : this.username , password : this.password}
-      const valid  =   sch.Login.validate(data)
-  if(valid.error) throw new Error("username ou passeword incorrect")
+      const  valide_username =  sch.username.validate({username : this.username})
+      if (valide_username.error) throw new Error("mauvais username")
+    
+      const  valide_pass =  sch.password.validate({password : this.password})
+      if (valide_pass.error) throw new Error("mauvais passeword")
+      const data  = { username : this.username , password : this.password}
+      await  store.dispatch('login',data)
+
+      this.message = "utilisateur connecté"
+      
 
 
 

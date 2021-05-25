@@ -67,7 +67,10 @@ export default {
         if (valide_username.error) throw new Error("mauvais username");
 
         const valide_pass = sch.password.validate({ password: this.password });
-        if (valide_pass.error) throw new Error("mauvais passeword");
+        if (valide_pass.error)
+          throw new Error(
+            "mauvais passeword 1 majuscule 1 caractere special et 1 lettre minimum et plus de 8 caractere"
+          );
 
         const data = { username: this.username, password: this.password };
         await store.dispatch("login", data).catch(() => {

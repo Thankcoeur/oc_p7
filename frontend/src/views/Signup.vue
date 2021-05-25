@@ -65,7 +65,10 @@ export default {
         const valide_mail = sch.email.validate({ email: this.email });
         if (valide_mail.error) throw new Error("adresse mail fausse");
         const valide_pass = sch.password.validate({ password: this.password });
-        if (valide_pass.error) throw new Error("password  au mauvais format");
+        if (valide_pass.error)
+          throw new Error(
+            "mauvais passeword 1 majuscule 1 caractere special et 1 lettre minimum et plus de 8 caractere"
+          );
         const data = {
           username: this.username,
           password: this.password,

@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="">
-      <router-link to="/"> <div class="titre"> <img height="50px" src="../assets/icon.svg" alt="">  Groupomania</div> </router-link>
+      <router-link to="/"> <div class="titre"> <img height="40px" src="../assets/icon.svg" alt="">  Groupomania</div> </router-link>
     </div>
 
     <ul>
@@ -69,7 +69,7 @@ nav {
   display: flex;
   align-items: center;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 ul {

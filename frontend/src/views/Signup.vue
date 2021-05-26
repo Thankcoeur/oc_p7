@@ -79,6 +79,7 @@ export default {
             "impossible de s' enregistrer l' utilisateur existe surement"
           );
         });
+        this.$router.replace("/")
 
         this.message = "utilisateur enregistré";
       } catch (e) {

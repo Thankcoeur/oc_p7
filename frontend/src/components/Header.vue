@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="">
-      <router-link to="/"> <div class="titre">Groupomania</div> </router-link>
+      <router-link to="/"> <div class="titre"> <img height="50px" src="../assets/icon.svg" alt="">  Groupomania</div> </router-link>
     </div>
 
     <ul>
@@ -54,6 +54,7 @@ export default {
 @import "../scss/mixin";
 
 nav {
+  background-color: var(--main-bg-color);
   position: fixed;
   left: 0;
   right: 0;
@@ -65,7 +66,9 @@ nav {
 }
 
 .titre {
-  color: var(--main-bg-color);
+  display: flex;
+  align-items: center;
+  color: white;
   font-size: 1.4rem;
 }
 
@@ -77,7 +80,7 @@ ul {
 }
 
 a {
-  color: #0f002a;
+  color: #ffffff;
   font-weight: bold;
   text-decoration: none;
   font-size: 14px;
